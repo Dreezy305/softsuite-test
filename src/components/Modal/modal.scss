@@ -1,0 +1,58 @@
+.form-input-label {
+  font-family: "GilroyRegular";
+  font-style: normal;
+  font-weight: 400;
+  color: #57678c;
+  font-size: 14px;
+}
+
+.form-input,
+.form-input-textarea {
+  height: 57px;
+  font-family: "GilroyRegular";
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  border-radius: 6px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #57678c !important;
+  &:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    color: #57678c !important;
+  }
+  &::placeholder {
+    color: #57678c !important;
+  }
+}
+
+.form-input-textarea {
+  height: 80px;
+  &::placeholder {
+    color: #57678c;
+  }
+}
+
+.form-button {
+  font-family: "GilroyBold";
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-align: center;
+  border-radius: 6px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.cancel {
+  background: #fff;
+  border: 2px solid #4baa79;
+  color: #4baa79;
+}
+
+.next {
+  border: 2px solid #4baa79;
+  color: #fff;
+  background: #4baa79;
+}
