@@ -39,7 +39,36 @@
     &-left {
       display: flex;
       flex-direction: row;
+      align-items: center;
       text-align: left;
+      width: 35%;
+      button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 40px;
+        background: #2d416f;
+        outline: none;
+        box-shadow: none;
+        &:hover {
+          outline: none;
+          box-shadow: none;
+          background: #2d416f;
+        }
+      }
+      &__search {
+        height: 40px;
+        font-family: "PoppinsRegular";
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0em;
+        border-radius: 6px !important;
+        color: #1a3e56;
+        width: 50%;
+        input[type="text"] {
+          padding-left: 10px !important;
+        }
+      }
     }
     &-right {
       display: flex;
