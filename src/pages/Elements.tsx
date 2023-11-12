@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import "./elements.scss";
 import { ReactComponent as Search } from "../assets/search.svg";
+import "./elements.scss";
 
 function Elements(): JSX.Element {
   return (
