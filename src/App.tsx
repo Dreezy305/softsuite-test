@@ -1,15 +1,10 @@
 import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import Layout from "./components/Layout/Layout";
 import Footer from "./components/Footer/Footer";
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
-import Elements from "./pages/Elements";
+import Layout from "./components/Layout/Layout";
 import ElementLink from "./pages/ElementLink";
+import Elements from "./pages/Elements";
 
 function App() {
   return (
