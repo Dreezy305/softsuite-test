@@ -1,23 +1,24 @@
 import React from "react";
 import {
-  Sidebar,
   Menu,
   MenuItem,
-  SubMenu,
   MenuItemStyles,
   RenderExpandIconParams,
+  Sidebar,
+  SubMenu,
 } from "react-pro-sidebar";
-import { SidebarHeader } from "./SideBarHeader";
-import { ReactComponent as Payroll } from "../../assets/payroll.svg";
-import { ReactComponent as Dashboard } from "../../assets/dashboard.svg";
-import { ReactComponent as Structure } from "../../assets/structure.svg";
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as Logout } from "../../assets/Logout.svg";
+import { ReactComponent as Profile } from "../../assets/Profile.svg";
 import { ReactComponent as Setting } from "../../assets/Setting.svg";
+import { ReactComponent as ArrowDown } from "../../assets/arrow-down.svg";
+import { ReactComponent as ArrowUp } from "../../assets/arrow-up.svg";
+import { ReactComponent as Dashboard } from "../../assets/dashboard.svg";
 import { ReactComponent as Employee } from "../../assets/employee.svg";
 import { ReactComponent as Gear } from "../../assets/payroll 2.svg";
-import { ReactComponent as Profile } from "../../assets/Profile.svg";
-import { ReactComponent as Logout } from "../../assets/Logout.svg";
-import { ReactComponent as ArrowUp } from "../../assets/arrow-up.svg";
-import { ReactComponent as ArrowDown } from "../../assets/arrow-down.svg";
+import { ReactComponent as Payroll } from "../../assets/payroll.svg";
+import { ReactComponent as Structure } from "../../assets/structure.svg";
+import { SidebarHeader } from "./SideBarHeader";
 
 const menuItemStyles: MenuItemStyles = {
   root: {
@@ -30,6 +31,8 @@ const menuItemStyles: MenuItemStyles = {
 };
 
 function SideBar(): JSX.Element {
+  const navigate = useNavigate();
+
   const [collapsed, setCollapsed] = React.useState(false);
   const [toggled, setToggled] = React.useState(false);
   const [broken, setBroken] = React.useState(false);
@@ -237,6 +240,9 @@ function SideBar(): JSX.Element {
                   fontFamily: "PoppinsMedium",
                   fontSize: "14px",
                   fontWeight: 500,
+                }}
+                onClick={() => {
+                  navigate(`/elements`);
                 }}
               >
                 Elements

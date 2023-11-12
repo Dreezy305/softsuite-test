@@ -1,0 +1,50 @@
+.elements_link {
+  color: #abb3c5 !important;
+  font-family: "GilroyBold";
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-align: left !important;
+}
+
+.elements_crumb {
+  color: #2d416f;
+  font-family: "GilroyBold";
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-align: left !important;
+}
+
+.element {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 15px;
+  width: 90%;
+  border: 1px solid #fff;
+  &_title {
+    font-family: "GilroyBold";
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #2d416f;
+    padding-top: 15px;
+  }
+  &_row {
+    background: #f4f6f8;
+    padding: 15px;
+    margin-top: 20px;
+    &-left {
+      display: flex;
+      flex-direction: row;
+      text-align: left;
+    }
+    &-right {
+      display: flex;
+      flex-direction: row;
+      text-align: right;
+    }
+  }
+}

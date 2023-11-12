@@ -34,15 +34,132 @@ body {
   src: url("assets/Poppins/Poppins-ExtraLight.ttf");
   font-weight: lighter;
 }
+@font-face {
+  font-family: GilroyBold;
+  src: url("assets/gilroy/Gilroy-Bold.ttf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: GilroySemiBold;
+  src: url("assets/gilroy/Gilroy-SemiBold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: GilroyMedium;
+  src: url("assets/gilroy/Gilroy-Medium.ttf");
+  font-weight: 500;
+}
+@font-face {
+  font-family: GilroyRegular;
+  src: url("assets/gilroy/Gilroy-Regular.ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: GilroyLight;
+  src: url("assets/gilroy/Gilroy-Light.ttf");
+  font-weight: 200;
+}
 
 .menu-item {
   font-family: PoppinsMedium !important;
 }
 
 .super-menu-item {
-  font-family:   PoppinsExtraLight !important;
+  font-family: PoppinsExtraLight !important;
 }
 
 .header-width {
   width: calc(100% - 300px);
+}
+
+.home-stack {
+  width: 25%;
+  padding: 0px 10px;
+  background: #f6f7f9;
+  border-radius: 4px;
+  height: 57px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.org-name {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.org-stack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.search-group {
+  height: 57px;
+  font-family: "GilroyRegular";
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  border-radius: 6px !important;
+  width: 40% !important;
+}
+
+.change {
+  font-family: "GilroyMedium";
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.org-title {
+  font-family: "GilroyBold";
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.bell {
+  cursor: pointer;
+  width: 20%;
+  text-align: end;
+}
+
+.payrol-mgr {
+  cursor: pointer;
+  width: 60%;
+}
+.payrol-mgr_name {
+  font-family: "GilroySemibold";
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.payrol-mgr_role {
+  font-family: "GilroyRegular";
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.width-75 {
+  width: 60% !important;
+}
+.width-60 {
+  width: 40% !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  float: left;
+  padding-right: var(--bs-breadcrumb-item-padding-x) !important;
+  color: var(--bs-breadcrumb-divider-color) !important;
+  content: var(
+    --bs-breadcrumb-divider,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-right' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z' /%3E%3C/svg%3E")
+  ) !important;
+  padding-top: 3px;
 }

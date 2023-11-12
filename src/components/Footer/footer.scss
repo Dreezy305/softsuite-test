@@ -1,0 +1,17 @@
+.footer {
+  background: #2d416f;
+  padding: 15px 30px;
+  &_content {
+    font-family: "GilroyRegular";
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0em;
+    color: #ffffff;
+  }
+  &_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

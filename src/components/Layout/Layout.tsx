@@ -1,9 +1,8 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import Header from "../Header/Header";
 import SideBar from "../SideBar/SideBar";
 
 function Layout({ children }: { children: ReactNode }) {
-  // const [rtl, setRtl] = useState(false);
   return (
     <div
       style={{
