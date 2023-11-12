@@ -50,6 +50,7 @@
         background: #2d416f;
         outline: none;
         box-shadow: none;
+        border-radius: 6px;
         &:hover {
           outline: none;
           box-shadow: none;
@@ -74,6 +75,32 @@
       display: flex;
       flex-direction: row;
       text-align: right;
+      button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 40px;
+        background: #4baa79;
+        outline: none;
+        box-shadow: none;
+        border-radius: 6px;
+        color: #fff;
+        font-family: "GilroyBold";
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0em;
+        text-align: center;
+        width: 180px;
+        span {
+          margin: auto;
+        }
+        &:hover {
+          outline: none;
+          box-shadow: none;
+          background: #4baa79;
+          color: #fff;
+        }
+      }
     }
   }
 }

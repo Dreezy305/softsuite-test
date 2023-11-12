@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { ReactComponent as Filter } from "../assets/Filter.svg";
+import { ReactComponent as Plus } from "../assets/plus.svg";
 import { ReactComponent as Search } from "../assets/search.svg";
 import "./elements.scss";
 
@@ -69,7 +70,12 @@ function Elements(): JSX.Element {
             </button>
           </div>
           <div className="element_row-right">
-            <button className=""></button>
+            <button className="btn">
+              <span>
+                {" "}
+                Create Element <Plus className="ps-1" />
+              </span>
+            </button>
           </div>
         </div>
       </div>
