@@ -10,6 +10,7 @@ function ElementLink(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location?.state;
+  console.log(data);
 
   const getValue = (data: any, idtoFilter: any) => {
     const filteredData: any = data.filter(
@@ -94,7 +95,8 @@ function ElementLink(): JSX.Element {
                   key === "classificationId" ||
                   key === "categoryId" ||
                   key === "id" ||
-                  key === "createdAt" ? null : (
+                  key === "createdAt" ? null : key === "prorate" &&
+                    value === "" ? null : (
                     <div
                       className={`col-lg-6 border text-start pt-2 pb-3`}
                       key={key + value}
