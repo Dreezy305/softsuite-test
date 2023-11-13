@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { ELEMENT_CAT, ELEMENT_CLASS } from "./months";
 
 export const ElementsColumn = [
@@ -37,6 +38,20 @@ export const ElementsColumn = [
     },
   },
   { Header: "Status", columnId: 4, accessor: "status" },
-  { Header: "Date and time modified", columnId: 5, accessor: "createdAt" },
+  {
+    Header: "Date and time modified",
+    columnId: 5,
+    accessor: "createdAt",
+    Cell: ({ row }: any) => {
+      return (
+        <div className="" role="group">
+          {dayjs(row?.original?.createdAt).format("YYYY-MM-DD || h:mma") ||
+            "N/A"}
+        </div>
+      );
+    },
+  },
   { Header: "Modified By", columnId: 6, accessor: "modifiedBy" },
 ];
+
+//  <>
