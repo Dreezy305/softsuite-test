@@ -22,9 +22,11 @@ import "./modal.scss";
 function CreateElementModal({
   show,
   handleClose,
+  data,
 }: {
   show: boolean;
   handleClose: () => void;
+  data?: any;
 }): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -35,6 +37,19 @@ function CreateElementModal({
     dispatch<any>(fetchLookUps());
   }, [dispatch]);
 
+  console.log(data, "data");
+
+  useEffect(() => {
+    if (data) {
+      setValue("name", data?.name);
+      setValue("classificationValueId", data?.classificationValueId);
+      setValue("categoryValueId", data?.categoryValueId);
+      setValue("payRunValueId", data?.payRunValueId);
+      setValue("description", data?.description);
+      setValue("reportingName", data?.reportingName);
+    }
+  });
+
   const {
     handleSubmit,
     formState: { errors, isValid },
@@ -42,6 +57,7 @@ function CreateElementModal({
     register,
     reset,
     watch,
+    setValue,
   } = useForm({
     mode: "all",
   });
@@ -86,8 +102,6 @@ function CreateElementModal({
     setIsSubmitted(false);
   };
 
- 
-
   return (
     <Modal
       show={show}
@@ -102,7 +116,9 @@ function CreateElementModal({
     >
       {!isSubmitted && (
         <Modal.Header closeButton={false}>
-          <Modal.Title>Create Element</Modal.Title>
+          <Modal.Title>
+            {Object.keys(data)?.length > 0 ? "Edit Element" : "Create Element"}
+          </Modal.Title>
         </Modal.Header>
       )}
       {isSubmitted ? (
@@ -436,10 +452,10 @@ function CreateElementModal({
                         render={({ field }) => (
                           <Select
                             isMulti
-                            options={monthsArray.map((month) => ({
-                              value: month.abbreviation,
-                              label: month.name,
-                            }))}
+                            // options={monthsArray.map((month) => ({
+                            //   value: month.abbreviation,
+                            //   label: month.name,
+                            // }))}
                             {...field}
                             isDisabled={
                               watch()?.payFrequency === "monthly" ? true : false
@@ -547,7 +563,7 @@ function CreateElementModal({
                   <button
                     type="button"
                     className="w-100 form-button next"
-                    disabled={!isValid}
+                    // disabled={!isValid}
                     onClick={() => setStage(2)}
                   >
                     Next

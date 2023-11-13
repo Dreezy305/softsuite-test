@@ -25,6 +25,7 @@ function Elements(): JSX.Element {
   const [page, setPage] = useState(1);
   const [ismodalOpen, setIsmodalOpen] = useState(false);
   const [eleId, setEleid] = useState("");
+  const [eleData, setEleData] = useState({});
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -74,7 +75,14 @@ function Elements(): JSX.Element {
                     </svg>{" "}
                     View Element Link
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3" className="pt-3 pb-3">
+                  <Dropdown.Item
+                    as={"button"}
+                    className="pt-3 pb-3"
+                    onClick={() => {
+                      handleShow();
+                      setEleData(row?.original);
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -124,7 +132,11 @@ function Elements(): JSX.Element {
         handleClose={() => setIsmodalOpen(false)}
         id={eleId}
       />
-      <CreateElementModal show={show} handleClose={handleClose} />
+      <CreateElementModal
+        show={show}
+        handleClose={handleClose}
+        data={eleData}
+      />
       <div
         className="px-5 py-3"
         style={{ background: "#F4F6F8", minHeight: "100vh" }}
