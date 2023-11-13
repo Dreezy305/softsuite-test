@@ -3,18 +3,20 @@
 import dayjs from "dayjs";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ELEMENT_CAT, ELEMENT_CLASS, PAY_RUN } from "../utils/months";
 import "./elements.scss";
 
 function ElementLink(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location?.state;
-  console.log(data, "data");
 
-  function isISO8601DateString(str: any) {
-    const date = new Date(str);
-    return !isNaN(date.getTime());
-  }
+  const getValue = (data: any, idtoFilter: any) => {
+    const filteredData: any = data.filter(
+      (item: any) => item.id === idtoFilter
+    );
+    return filteredData[0]?.name;
+  };
 
   return (
     <div
@@ -144,6 +146,18 @@ function ElementLink(): JSX.Element {
                                     "N/A"}
                                 </span>
                               </>
+                            ) : key === "classificationValueId" ? (
+                              <span className="org-title text-capitalize">
+                                {getValue(ELEMENT_CLASS, value)}
+                              </span>
+                            ) : key === "categoryValueId" ? (
+                              <span className="org-title text-capitalize">
+                                {getValue(ELEMENT_CAT, value)}
+                              </span>
+                            ) : key === "payRunValueId" ? (
+                              <span className="org-title text-capitalize">
+                                {getValue(PAY_RUN, value)}
+                              </span>
                             ) : (
                               <span className="org-title text-capitalize">
                                 {value}
