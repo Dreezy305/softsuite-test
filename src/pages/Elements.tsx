@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { ReactComponent as Filter } from "../assets/Filter.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
 import { ReactComponent as Search } from "../assets/search.svg";
+import DeleteElement from "../components/Modal/DeleteElement";
 import CreateElementModal from "../components/Modal/Modal";
 import Table from "../components/Table/Table";
 import PaginationComponent from "../components/pagination/Pagination";
@@ -19,10 +20,11 @@ function Elements(): JSX.Element {
   const dispatch = useAppDispatch();
   const elementData = store?.elements?.data?.data;
   const totalItems = elementData?.total;
-  console.log(elementData, "store");
 
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
+  const [ismodalOpen, setIsmodalOpen] = useState(false);
+  const [eleId, setEleid] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -39,6 +41,7 @@ function Elements(): JSX.Element {
         columnId: 8,
         accessor: "actions",
         Cell: ({ row }: any): JSX.Element => {
+          const id = row?.original?.id;
           return (
             <>
               <Dropdown>
@@ -84,7 +87,13 @@ function Elements(): JSX.Element {
                     </svg>{" "}
                     Edit Element
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
+                  <Dropdown.Item
+                    as={"button"}
+                    onClick={() => {
+                      setIsmodalOpen(true);
+                      setEleid(id);
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -110,6 +119,11 @@ function Elements(): JSX.Element {
 
   return (
     <>
+      <DeleteElement
+        show={ismodalOpen}
+        handleClose={() => setIsmodalOpen(false)}
+        id={eleId}
+      />
       <CreateElementModal show={show} handleClose={handleClose} />
       <div
         className="px-5 py-3"

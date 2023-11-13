@@ -77,7 +77,7 @@ function CreateElementModal({
       console.log(response.data);
       if (response.status === 201) {
         dispatch<any>(fetchElements());
-        setIsSubmitted(false);
+        handleClose();
       }
     } catch (error) {
       setIsSubmitted(false);
@@ -86,7 +86,7 @@ function CreateElementModal({
     setIsSubmitted(false);
   };
 
-  console.log(watch()?.payFrequency, "");
+ 
 
   return (
     <Modal
