@@ -36,8 +36,6 @@ function Elements(): JSX.Element {
         columnId: 8,
         accessor: "actions",
         Cell: ({ row }: any): JSX.Element => {
-          const id = row?.original?.account_no;
-          const locationObject = row?.original;
           return (
             <>
               <Dropdown>
@@ -56,9 +54,8 @@ function Elements(): JSX.Element {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                   <Dropdown.Item href="#/action-2">
-                    View Element Link
+                    <i className="bi bi-eye"></i> View Element Link
                   </Dropdown.Item>
                   <Dropdown.Item href="#/action-3">Edit Element</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">
