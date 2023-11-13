@@ -69,7 +69,9 @@ function Elements(): JSX.Element {
                 <Dropdown.Menu className="p-2">
                   <Dropdown.Item
                     as={"button"}
-                    onClick={() => navigate(`/element/${id}`)}
+                    onClick={() =>
+                      navigate(`/element/${id}`, { state: row?.original })
+                    }
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

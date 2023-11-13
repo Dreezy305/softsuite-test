@@ -18,7 +18,6 @@ function PaginationComponent({
   for (let i = 1; i <= roundedUp; i++) {
     newArray.push(i);
   }
-  console.log(newArray?.length, "new");
 
   return (
     <Pagination

@@ -1,10 +1,44 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./elements.scss";
 
 function ElementLink(): JSX.Element {
   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location?.state;
+
+  const payload = {
+    name: data?.name,
+    description: data?.description,
+    payRunId: 5,
+    payRunValueId: data?.payRunValueId,
+    classificationId: 2,
+    classificationValueId: data?.classificationValueId,
+    categoryId: 1,
+    categoryValueId: data?.categoryValueId,
+    reportingName: data.reportingName,
+    processingType: data?.processingType,
+    status: data?.status,
+    prorate: data?.prorate,
+    effectiveStartDate: data?.effectiveStartDate,
+    effectiveEndDate: data?.effectiveEndDate,
+    selectedMonths: data?.selectedMonths,
+    payFrequency: data?.payFrequency,
+    modifiedBy: "Bankole Idris Adegboyega",
+  };
+
+  const left = {
+    name: data?.name,
+    classificationValueId: data?.classificationValueId,
+    description: data?.description,
+    reportingName: data.reportingName,
+  };
+  const right = {
+    categoryValueId: data?.categoryValueId,
+    payRunValueId: data?.payRunValueId,
+  };
+
   return (
     <div
       className="px-5 py-3"
@@ -72,6 +106,74 @@ function ElementLink(): JSX.Element {
 
         <div className="text-start">
           <h5 className="element_title">Element Details</h5>
+
+          <div className="w-100 border">
+            <div className="container text-start">
+              <div className="row align-items-start divider">
+                {Object.entries(data ?? {}).map(([key, value]: any) => (
+                  <div className="col-lg-6 border text-start pt-2 pb-3">
+                    <span className="d-flex flex-column org-name">
+                      <small className="change text-capitalize">{key}</small>
+                      {Array.isArray(value) ? (
+                        <>
+                          {value.map((i) => (
+                            <span className="org-title text-capitalize">
+                              {i}
+                            </span>
+                          ))}
+                        </>
+                      ) : (
+                        <>
+                          {key === "status" ? (
+                            <span className="org-title text-capitalize">
+                              {value === true
+                                ? "active"
+                                : value === false
+                                ? "inactive"
+                                : value}
+                            </span>
+                          ) : (
+                            <span className="org-title text-capitalize">
+                              {value}
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </span>
+                  </div>
+                ))}
+
+                {/* <div className="col text-start"></div> */}
+              </div>
+            </div>
+            {/* <table className="w-100">
+              <thead style={{ display: "none" }}>
+                <tr>
+                  <th>1</th>
+                  <th>2</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(left ?? {}).map(([key, value]: any) => (
+                  <tr key={key}>
+                    <td>
+                      {key}
+                      {value}
+                    </td>
+                   
+                  </tr>
+                ))}
+                {Object.entries(right ?? {}).map(([key, value]: any) => (
+                  <tr key={key}>
+                    <td>
+                      {key}
+                      {value}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table> */}
+          </div>
         </div>
       </div>
     </div>

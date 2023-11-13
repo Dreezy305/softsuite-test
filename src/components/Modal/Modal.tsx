@@ -39,8 +39,6 @@ function CreateElementModal({
     dispatch<any>(fetchLookUps());
   }, [dispatch]);
 
-  console.log(data, "data");
-
   const {
     handleSubmit,
     formState: { errors, isValid },
@@ -106,7 +104,7 @@ function CreateElementModal({
         `https://650af6bedfd73d1fab094cf7.mockapi.io/elements`,
         payload
       );
-      console.log(response.data);
+
       if (response.status === 201) {
         dispatch<any>(fetchElements(1));
         setIsSubmitted(true);
@@ -146,7 +144,7 @@ function CreateElementModal({
         `https://650af6bedfd73d1fab094cf7.mockapi.io/elements/${id}`,
         payload
       );
-      console.log(response.data);
+
       if (response.status === 201) {
         dispatch<any>(fetchElements(1));
         handleClose();
