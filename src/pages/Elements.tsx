@@ -1,16 +1,49 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import Dropdown from "react-bootstrap/Dropdown";
 import { ReactComponent as Filter } from "../assets/Filter.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
 import { ReactComponent as Search } from "../assets/search.svg";
-import "./elements.scss";
 import CreateElementModal from "../components/Modal/Modal";
+import Table from "../components/Table/Table";
+import { ElementsColumn } from "../utils/dataTable";
+import "./elements.scss";
 
 function Elements(): JSX.Element {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const columns = useMemo(
+    () => [
+      ...ElementsColumn,
+      {
+        Header: "Action",
+        columnId: 8,
+        accessor: "actions",
+        Cell: ({ row }: any): JSX.Element => {
+          const id = row?.original?.account_no;
+          const locationObject = row?.original;
+          return (
+            <div className="btn-group" role="group">
+              <button
+                className="btn btn-white btn-sm"
+                // onClick={() =>
+                //   navigate(`/merchant/accounts/details/${id}`, {
+                //     state: { ...locationObject },
+                //   })
+                // }
+              >
+                <i className="bi bi-three-dots"></i> View
+              </button>
+            </div>
+          );
+        },
+      },
+    ],
+    []
+  );
 
   return (
     <>
@@ -73,7 +106,7 @@ function Elements(): JSX.Element {
                   <Search />
                 </span>
               </div>
-              <button className="btn btn-primary ms-2">
+              <button className="btn ms-2">
                 <Filter />
               </button>
             </div>
@@ -85,6 +118,10 @@ function Elements(): JSX.Element {
                 </span>
               </button>
             </div>
+          </div>
+
+          <div className="w-100">
+            <Table columns={columns} data={[]} isFetching={false} />
           </div>
         </div>
       </div>

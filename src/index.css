@@ -206,3 +206,19 @@ body {
   background-color: rgb(224, 224, 224);
   display: none !important;
 }
+
+.empty-response-pg {
+  text-align: center;
+  margin: 3rem auto;
+  height: 100%;
+}
+.empty-response-pg img {
+  max-width: 162px;
+  max-height: 168px;
+}
+.empty-response-pg .h3,
+.empty-response-pg p {
+  /* margin: 1.5rem auto; */
+  text-align: center;
+  max-width: 350px;
+}
