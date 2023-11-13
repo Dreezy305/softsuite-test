@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import dayjs from "dayjs";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./elements.scss";
@@ -7,6 +9,7 @@ function ElementLink(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location?.state;
+  console.log(data, "data");
 
   return (
     <div
@@ -79,38 +82,51 @@ function ElementLink(): JSX.Element {
           <div className="w-100 border">
             <div className="container text-start">
               <div className="row align-items-start divider">
-                {Object.entries(data ?? {}).map(([key, value]: any) => (
-                  <div className="col-lg-6 border text-start pt-2 pb-3">
-                    <span className="d-flex flex-column org-name">
-                      <small className="change text-capitalize">{key}</small>
-                      {Array.isArray(value) ? (
-                        <>
-                          {value.map((i) => (
-                            <span className="org-title text-capitalize">
-                              {i}
-                            </span>
-                          ))}
-                        </>
-                      ) : (
-                        <>
-                          {key === "status" ? (
-                            <span className="org-title text-capitalize">
-                              {value === true
-                                ? "active"
-                                : value === false
-                                ? "inactive"
-                                : value}
-                            </span>
-                          ) : (
-                            <span className="org-title text-capitalize">
-                              {value}
-                            </span>
-                          )}
-                        </>
-                      )}
-                    </span>
-                  </div>
-                ))}
+                {Object.entries(data ?? {}).map(([key, value]: any) =>
+                  key === "payRunId" ||
+                  key === "classificationId" ||
+                  key === "categoryId" ? null : (
+                    <div
+                      className={`col-lg-6 border text-start pt-2 pb-3`}
+                      key={key + value}
+                    >
+                      <span className={`d-flex flex-column org-name`}>
+                        <small className="change text-uppercase">
+                          {key === "payRunValueId"
+                            ? "PayRun"
+                            : key === "classificationValueId"
+                            ? "Element Classification"
+                            : key}
+                        </small>
+                        {Array.isArray(value) ? (
+                          <>
+                            {value.map((i) => (
+                              <span className="org-title text-capitalize">
+                                {i}
+                              </span>
+                            ))}
+                          </>
+                        ) : (
+                          <>
+                            {key === "status" ? (
+                              <span className="org-title text-capitalize">
+                                {value === true
+                                  ? "active"
+                                  : value === false
+                                  ? "inactive"
+                                  : value}
+                              </span>
+                            ) : (
+                              <span className="org-title text-capitalize">
+                                {value}
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </span>
+                    </div>
+                  )
+                )}
 
                 {/* <div className="col text-start"></div> */}
               </div>
