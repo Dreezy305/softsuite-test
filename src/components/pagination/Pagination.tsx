@@ -5,18 +5,21 @@ function PaginationComponent({
   activeItem,
   setActiveItem,
   totalItems,
+  data,
 }: {
   activeItem: number | any;
   setActiveItem: any;
   totalItems?: any;
+  data?: any;
 }) {
   const number = totalItems / 10;
   const roundedUp = Math.ceil(number);
   const newArray: any = [];
-  console.log(newArray, "totalItems"); // This will output [undefined, undefined]
   for (let i = 1; i <= roundedUp; i++) {
     newArray.push(i);
   }
+  console.log(newArray?.length, "new");
+
   return (
     <Pagination
       size="sm"
@@ -52,6 +55,7 @@ function PaginationComponent({
           })
         }
         style={{ outline: "none !important", boxShadow: "none !important" }}
+        disabled={activeItem === newArray?.length ? true : false}
       />
     </Pagination>
   );

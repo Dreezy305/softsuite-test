@@ -231,6 +231,7 @@ function Elements(): JSX.Element {
                   activeItem={page}
                   setActiveItem={setPage}
                   totalItems={totalItems}
+                  data={elementData?.content}
                 />
               )}
             </div>
