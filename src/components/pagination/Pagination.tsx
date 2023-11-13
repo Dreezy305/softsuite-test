@@ -25,6 +25,7 @@ function PaginationComponent({
             }
           })
         }
+        disabled={activeItem === 1 ? true : false}
         style={{ outline: "none !important", boxShadow: "none !important" }}
       />
       {[1, 2, 3, 4, 5].map((i) => (
