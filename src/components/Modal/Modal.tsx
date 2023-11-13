@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -7,9 +8,9 @@ import Row from "react-bootstrap/Row";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 import { ReactComponent as Success } from "../../assets/success.svg";
+import { fetchElements } from "../../store/elementReducer";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchLookUps } from "../../store/lookupReducer";
-import axios from "axios";
 import {
   ELEMENT_CAT,
   ELEMENT_CLASS,
@@ -75,6 +76,7 @@ function CreateElementModal({
       );
       console.log(response.data);
       if (response.status === 201) {
+        dispatch<any>(fetchElements());
         setIsSubmitted(false);
       }
     } catch (error) {
