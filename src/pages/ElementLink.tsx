@@ -51,7 +51,7 @@ function ElementLink(): JSX.Element {
         </ol>
       </nav>
 
-      <div className="element">
+      <div className="element px-4">
         <h5 className="element_title">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -69,6 +69,10 @@ function ElementLink(): JSX.Element {
             />
           </svg>
         </h5>
+
+        <div className="text-start">
+          <h5 className="element_title">Element Details</h5>
+        </div>
       </div>
     </div>
   );
