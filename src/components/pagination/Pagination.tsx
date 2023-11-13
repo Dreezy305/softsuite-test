@@ -10,6 +10,13 @@ function PaginationComponent({
   setActiveItem: any;
   totalItems?: any;
 }) {
+  const number = totalItems / 10;
+  const roundedUp = Math.ceil(number);
+  const newArray: any = [];
+  console.log(newArray, "totalItems"); // This will output [undefined, undefined]
+  for (let i = 1; i <= roundedUp; i++) {
+    newArray.push(i);
+  }
   return (
     <Pagination
       size="sm"
@@ -28,7 +35,7 @@ function PaginationComponent({
         disabled={activeItem === 1 ? true : false}
         style={{ outline: "none !important", boxShadow: "none !important" }}
       />
-      {[1, 2, 3, 4, 5].map((i) => (
+      {newArray?.map((i: any) => (
         <Pagination.Item
           key={i}
           onClick={() => setActiveItem(i)}
