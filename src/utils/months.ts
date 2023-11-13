@@ -72,3 +72,111 @@ export const monthsArray = [
     days: 31,
   },
 ];
+
+export const ELEMENT_CAT = [
+  {
+    id: "1",
+    name: "Pre-Tax Deduction",
+    description: "Pre-Tax Deduction",
+    status: "active",
+    lookupId: "1",
+    lookupName: "Element Category",
+    createdAt: "2023-09-14T13:11:20.925994",
+  },
+  {
+    id: "2",
+    name: "Post Tax Deduction",
+    description: "Post Tax Deduction",
+    status: "active",
+    lookupId: "1",
+    lookupName: "Element Category",
+    createdAt: "2023-09-14T13:11:20.940704",
+  },
+  {
+    id: "3",
+    name: "Non Taxable Earning",
+    description: "Non Taxable Earning",
+    status: "active",
+    lookupId: "1",
+    lookupName: "Element Category",
+    createdAt: "2023-09-14T13:11:20.932781",
+  },
+  {
+    id: "4",
+    name: "Taxable Earning",
+    description: "Taxable Earning",
+    status: "active",
+    lookupId: "1",
+    lookupName: "Element Category",
+    createdAt: "2023-09-14T13:11:20.93518",
+  },
+  {
+    id: "5",
+    name: "Employee Contribution",
+    description: "Employee Contribution",
+    status: "active",
+    lookupId: "1",
+    lookupName: "Element Category",
+    createdAt: "2023-09-14T13:11:20.929289",
+  },
+  {
+    id: "6",
+    name: "Employer Contribution",
+    description: "Employer Contribution",
+    status: "active",
+    lookupId: "1",
+    lookupName: "Element Category",
+    createdAt: "2023-09-14T13:11:20.93787",
+  },
+];
+
+export const ELEMENT_CLASS = [
+  {
+    id: "7",
+    name: "Deduction",
+    description: "Deduction",
+    status: "active",
+    lookupId: "2",
+    lookupName: "Element Classification",
+    createdAt: "2023-09-14T13:11:20.945641",
+  },
+  {
+    id: "8",
+    name: "Earning",
+    description: "Earning",
+    status: "active",
+    lookupId: "2",
+    lookupName: "Element Classification",
+    createdAt: "2023-09-14T13:11:20.948521",
+  },
+  {
+    id: "9",
+    name: "Non-Grossable Earning",
+    description: "Non-Grossable Earning",
+    status: "active",
+    lookupId: "2",
+    lookupName: "Element Classification",
+    createdAt: "2023-09-14T13:11:20.951156",
+  },
+];
+
+export const PAY_RUN = [
+  {
+    id: "18",
+    name: "Monthly Run",
+    description: "Monthly Run",
+    status: "active",
+    lookupId: "5",
+    lookupName: "Pay Run",
+    createdAt: "2023-09-14T13:11:21.298033",
+  },
+  {
+    id: "19",
+    name: "Supplementary Run",
+    description: "Supplementary Run",
+    status: "active",
+    lookupId: "5",
+    lookupName: "Pay Run",
+    createdAt: "2023-09-14T13:11:21.300878",
+  },
+];

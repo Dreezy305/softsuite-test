@@ -4,8 +4,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
 import { useTable } from "react-table";
 import { JSX } from "react/jsx-runtime";
-import { ReactComponent as Empty } from "../../assets/empty.svg";
-import EmptyResponse from "./EmptyResponse";
+// import { ReactComponent as Empty } from "../../assets/empty.svg";
+// import EmptyResponse from "./EmptyResponse";
 import "./table.scss";
 
 function Table({

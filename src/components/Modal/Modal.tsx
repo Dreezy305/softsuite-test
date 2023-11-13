@@ -1,14 +1,22 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+// import { useSelector } from "react-redux";
 import Select from "react-select";
-import * as yup from "yup";
 import { ReactComponent as Success } from "../../assets/success.svg";
-import { monthsArray } from "../../utils/months";
+import { useAppDispatch } from "../../store/hooks";
+import { fetchLookUps } from "../../store/lookupReducer";
+// import { fetchLookUpsValues } from "../../store/lookupValueReducer";
+import {
+  ELEMENT_CAT,
+  ELEMENT_CLASS,
+  PAY_RUN,
+  monthsArray,
+} from "../../utils/months";
 import "./modal.scss";
 
 function CreateElementModal({
@@ -18,83 +26,70 @@ function CreateElementModal({
   show: boolean;
   handleClose: () => void;
 }): JSX.Element {
-  const [stage, setStage] = useState(2);
+  const dispatch = useAppDispatch();
 
-  const options = monthsArray.map((month) => ({
-    value: month.abbreviation,
-    label: month.name,
-  }));
+  const [stage, setStage] = useState(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  //   const schema = {
-  //     name: String,
-  //     description: String,
-  //     payRunId: Number,
-  //     payRunValueId: Number,
-  //     classificationId: Number,
-  //     classificationValueId: Number,
-  //     categoryId: Number,
-  //     categoryValueId: Number,
-  //     reportingName: String,
-  //     processingType: String,
-  //     status: String,
-  //     prorate: String,
-  //     effectiveStartDate: String,
-  //     effectiveEndDate: String,
-  //     selectedMonths: [String],
-  //     payFrequency: String,
-  //   };
-
-  const SchemaValidation = yup.object().shape({
-    name: yup.string().required("Name is required"),
-    description: yup.string().required("Description is required"),
-    payRunId: yup.number().required("PayRunId is required"),
-    payRunValueId: yup.number().required("PayRunValueId is required"),
-    classificationId: yup.number().required("ClassificationId is required"),
-    classificationValueId: yup
-      .number()
-      .required("ClassificationValueId is required"),
-    categoryId: yup.number().required("CategoryId is required"),
-    categoryValueId: yup.number().required("CategoryValueId is required"),
-    reportingName: yup.string().required("Reporting Name is required"),
-    // processingType: yup.string().required("Processing Type is required"),
-    // status: yup.string().required("Status is required"),
-    // prorate: yup.string().required("Prorate is required"),
-    // effectiveStartDate: yup
-    //   .string()
-    //   .required("Effective Start Date is required"),
-    // effectiveEndDate: yup.string().required("Effective End Date is required"),
-    // selectedMonths: yup
-    //   .array()
-    //   .of(yup.string())
-    //   .required("Selected Months is required"),
-    // payFrequency: yup.string().required("Pay Frequency is required"),
-  });
+  useEffect(() => {
+    dispatch<any>(fetchLookUps());
+  }, [dispatch]);
 
   const {
     handleSubmit,
-    watch,
-    trigger,
-    formState: { errors, isValid, isSubmitted },
+    formState: { errors, isValid },
     control,
     register,
+    reset,
   } = useForm({
-    // resolver: yupResolver(SchemaValidation),
     mode: "all",
   });
 
   const onSubmit = (data: any) => {
-    console.log("Step 2 data:", data);
+    console.log("Step 2 data:", { ...data, modifiedBy: "" });
+    const selectedMonths = data?.selectedMonths?.map((i: any) => i);
+    const payload = {
+      name: data?.name,
+      description: data?.description,
+      payRunId: 5,
+      payRunValueId: Number,
+      classificationId: 2,
+      classificationValueId: Number,
+      categoryId: 1,
+      categoryValueId: Number,
+      reportingName: data.reportingName,
+      processingType: data?.processingType,
+      status: data?.status,
+      prorate: data?.prorate,
+      effectiveStartDate: data?.effectiveStartDate,
+      effectiveEndDate: data?.effectiveEndDate,
+      selectedMonths: [String],
+      payFrequency: data?.payFrequency,
+      modifiedBy: "Bankole Idris Adegboyega",
+    };
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" className="px-3">
-      <Modal.Header closeButton={false}>
-        <Modal.Title>Create Element</Modal.Title>
-      </Modal.Header>
+    <Modal
+      show={show}
+      onHide={() => {
+        handleClose();
+        setIsSubmitted(false);
+        reset();
+      }}
+      size="lg"
+      className="px-3"
+      centered
+    >
+      {!isSubmitted && (
+        <Modal.Header closeButton={false}>
+          <Modal.Title>Create Element</Modal.Title>
+        </Modal.Header>
+      )}
       {isSubmitted ? (
         <Modal.Body>
           <Row>
-            <Col>
+            <Col className="mx-auto text-center d-flex">
               <Success className="mx-auto text-center" />
             </Col>
           </Row>
@@ -168,9 +163,9 @@ function CreateElementModal({
                         render={({ field }) => (
                           <Form.Select {...field} className="form-input">
                             <option value="">Selection Classification</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
+                            {ELEMENT_CLASS?.map((i: any) => (
+                              <option value={i?.id}>{i?.name}</option>
+                            ))}
                           </Form.Select>
                         )}
                       />
@@ -192,10 +187,10 @@ function CreateElementModal({
                         rules={{ required: "Please choose an option" }}
                         render={({ field }) => (
                           <Form.Select {...field} className="form-input">
-                            <option value="">Choose...</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
+                            <option value="">Select category</option>
+                            {ELEMENT_CAT?.map((i: any) => (
+                              <option value={i?.id}>{i?.name}</option>
+                            ))}
                           </Form.Select>
                         )}
                       />
@@ -215,10 +210,10 @@ function CreateElementModal({
                         rules={{ required: "Please choose an option" }}
                         render={({ field }) => (
                           <Form.Select {...field} className="form-input">
-                            <option value="">Choose...</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
+                            <option value="">Select</option>
+                            {PAY_RUN?.map((i: any) => (
+                              <option value={i?.id}>{i?.name}</option>
+                            ))}
                           </Form.Select>
                         )}
                       />
@@ -344,7 +339,10 @@ function CreateElementModal({
                       <Form.Label className="form-input-label">
                         Processing Type
                       </Form.Label>
-                      <div key={`inline-radio`} className="mb-3 radio-input">
+                      <div
+                        key={`inline-radio`}
+                        className="mb-3 radio-input form-control"
+                      >
                         <Form.Check
                           inline
                           label="Open"
@@ -370,7 +368,10 @@ function CreateElementModal({
                       <Form.Label className="form-input-label">
                         Pay Frequency
                       </Form.Label>
-                      <div key={`inline-radio`} className="mb-3 radio-input">
+                      <div
+                        key={`inline-radio`}
+                        className="mb-3 radio-input form-control"
+                      >
                         <Form.Check
                           inline
                           label="Monthly"
@@ -424,7 +425,10 @@ function CreateElementModal({
                       <Form.Label className="form-input-label">
                         Prorate
                       </Form.Label>
-                      <div key={`inline-radio`} className="mb-3 radio-input">
+                      <div
+                        key={`inline-radio`}
+                        className="mb-3 radio-input form-control"
+                      >
                         <Form.Check
                           inline
                           label="Yes"
@@ -450,7 +454,10 @@ function CreateElementModal({
                       <Form.Label className="form-input-label">
                         Status
                       </Form.Label>
-                      <div key={`inline-radio`} className="mb-3 radio-input">
+                      <div
+                        key={`inline-radio`}
+                        className="mb-3 radio-input form-control"
+                      >
                         <Form.Check
                           type="switch"
                           id="custom-switch"
@@ -501,10 +508,9 @@ function CreateElementModal({
                 </Col>
                 <Col>
                   <button
-                    type="button"
+                    type="submit"
                     className="w-100 form-button next"
                     disabled={!isValid}
-                    onClick={() => setStage(2)}
                   >
                     Create New Element
                   </button>
