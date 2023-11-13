@@ -7,14 +7,14 @@ import {
 } from "./constants";
 
 const fetchElements =
-  () =>
+  (page?: number) =>
   async (dispatch: Dispatch<AnyAction>): Promise<void> => {
     dispatch({
       type: FETCH_ELEMENTS_START,
     });
     try {
       const response = await axios.get(
-        `https://650af6bedfd73d1fab094cf7.mockapi.io/elements`
+        `https://650af6bedfd73d1fab094cf7.mockapi.io/elements?completed=false&page=${page}&limit=10`
       );
       if (response.status === 200) {
         dispatch({

@@ -8,6 +8,7 @@ import { ReactComponent as Plus } from "../assets/plus.svg";
 import { ReactComponent as Search } from "../assets/search.svg";
 import CreateElementModal from "../components/Modal/Modal";
 import Table from "../components/Table/Table";
+import PaginationComponent from "../components/pagination/Pagination";
 import { fetchElements } from "../store/elementReducer";
 import { useAppDispatch } from "../store/hooks";
 import { ElementsColumn } from "../utils/dataTable";
@@ -20,13 +21,14 @@ function Elements(): JSX.Element {
   console.log(elementData, "store");
 
   const [show, setShow] = useState(false);
+  const [page, setPage] = useState(1);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    dispatch<any>(fetchElements());
-  }, [dispatch]);
+    dispatch<any>(fetchElements(page));
+  }, [dispatch, page]);
 
   const columns = useMemo(
     () => [
@@ -186,6 +188,9 @@ function Elements(): JSX.Element {
               data={elementData?.content ?? []}
               isFetching={store?.elements?.status === "loading" ? true : false}
             />
+            <div className="d-flex flex-row align-items-end justify-content-end">
+              <PaginationComponent />
+            </div>
           </div>
         </div>
       </div>
