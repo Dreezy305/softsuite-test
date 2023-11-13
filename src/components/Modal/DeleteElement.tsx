@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { fetchElements } from "../../store/elementReducer";
+import { useAppDispatch } from "../../store/hooks";
 
 function DeleteElement({
   show,
@@ -12,6 +14,7 @@ function DeleteElement({
   handleClose: () => void;
   id: string;
 }) {
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
@@ -23,6 +26,7 @@ function DeleteElement({
       if (response.status === 200) {
         handleClose();
         setLoading(false);
+        dispatch<any>(fetchElements(1));
       }
     } catch (error) {
       setLoading(false);
