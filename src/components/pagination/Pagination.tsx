@@ -10,8 +10,6 @@ function PaginationComponent({
   setActiveItem: any;
   totalItems?: any;
 }) {
-  let items = 0;
-
   return (
     <Pagination
       size="sm"
