@@ -85,7 +85,8 @@ function ElementLink(): JSX.Element {
                 {Object.entries(data ?? {}).map(([key, value]: any) =>
                   key === "payRunId" ||
                   key === "classificationId" ||
-                  key === "categoryId" ? null : (
+                  key === "categoryId" ||
+                  key === "id" ? null : (
                     <div
                       className={`col-lg-6 border text-start pt-2 pb-3`}
                       key={key + value}
@@ -96,6 +97,12 @@ function ElementLink(): JSX.Element {
                             ? "PayRun"
                             : key === "classificationValueId"
                             ? "Element Classification"
+                            : key === "categoryValueId"
+                            ? "Element Category"
+                            : key === "effectiveStartDate"
+                            ? "Effective start date"
+                            : key === "effectiveEndDate"
+                            ? "Effective end date"
                             : key}
                         </small>
                         {Array.isArray(value) ? (
