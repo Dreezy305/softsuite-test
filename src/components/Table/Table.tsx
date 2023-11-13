@@ -65,15 +65,19 @@ function Table({
         </thead>
         {isFetching ? (
           <tbody>
-            <tr>
+            <>
               {columns?.map((i: any, index: any) => (
-                <>
-                  <td key={index}>
-                    <Skeleton height={30} />
-                  </td>
-                </>
+                <tr>
+                  {columns?.map((i: any, index: any) => (
+                    <>
+                      <td key={index}>
+                        <Skeleton height={30} />
+                      </td>
+                    </>
+                  ))}
+                </tr>
               ))}
-            </tr>
+            </>
           </tbody>
         ) : (
           <tbody {...getTableBodyProps()}>

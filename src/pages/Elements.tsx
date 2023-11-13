@@ -184,7 +184,7 @@ function Elements(): JSX.Element {
             <Table
               columns={columns}
               data={elementData?.content ?? []}
-              isFetching={false}
+              isFetching={store?.elements?.status === "loading" ? true : false}
             />
           </div>
         </div>
