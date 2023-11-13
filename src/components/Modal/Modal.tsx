@@ -563,14 +563,24 @@ function CreateElementModal({
                   </button>
                 </Col>
                 <Col>
-                  <button
-                    type="button"
-                    className="w-100 form-button next"
-                    // disabled={!isValid}
-                    onClick={() => setStage(2)}
-                  >
-                    Next
-                  </button>
+                  {Object.keys(data)?.length > 0 ? (
+                    <button
+                      type="button"
+                      className="w-100 form-button next"
+                      onClick={() => setStage(2)}
+                    >
+                      Next
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="w-100 form-button next"
+                      disabled={!isValid}
+                      onClick={() => setStage(2)}
+                    >
+                      Next
+                    </button>
+                  )}
                 </Col>
               </Row>
             )}
