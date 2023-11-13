@@ -39,11 +39,35 @@ function Elements(): JSX.Element {
           const id = row?.original?.account_no;
           const locationObject = row?.original;
           return (
-            <div className="btn-group" role="group">
-              <button className="btn">
-                <i className="bi bi-three-dots"></i>
-              </button>
-            </div>
+            <>
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant="secondary"
+                  id="dropdown-basic"
+                  className="btn btn-white btn-sm text-center"
+                  style={{ background: "#fff" }}
+                >
+                  <span
+                    className="mx-auto text-center"
+                    style={{ color: "#000" }}
+                  >
+                    ...
+                  </span>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">
+                    View Element Link
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Edit Element</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">
+                    Delete Element
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              {/* */}
+            </>
           );
         },
       },

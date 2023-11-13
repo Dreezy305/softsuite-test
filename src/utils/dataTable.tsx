@@ -53,5 +53,3 @@ export const ElementsColumn = [
   },
   { Header: "Modified By", columnId: 6, accessor: "modifiedBy" },
 ];
-
-//  <>
