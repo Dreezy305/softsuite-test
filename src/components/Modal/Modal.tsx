@@ -554,7 +554,10 @@ function CreateElementModal({
                   <button
                     type="button"
                     className="w-100 form-button cancel"
-                    onClick={handleClose}
+                    onClick={() => {
+                      handleClose();
+                      reset();
+                    }}
                   >
                     Cancel
                   </button>
