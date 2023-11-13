@@ -11,6 +11,11 @@ function ElementLink(): JSX.Element {
   const data = location?.state;
   console.log(data, "data");
 
+  function isISO8601DateString(str: any) {
+    const date = new Date(str);
+    return !isNaN(date.getTime());
+  }
+
   return (
     <div
       className="px-5 py-3"
@@ -131,6 +136,13 @@ function ElementLink(): JSX.Element {
                                   ? "inactive"
                                   : value}
                               </span>
+                            ) : key === "createdAt" ? (
+                              <>
+                                <span>
+                                  {dayjs(value).format("YYYY-MM-DD || h:mma") ||
+                                    "N/A"}
+                                </span>
+                              </>
                             ) : (
                               <span className="org-title text-capitalize">
                                 {value}
