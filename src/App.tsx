@@ -23,7 +23,9 @@ function App() {
           </Routes>
         </Layout>
       </Router>
-      <Footer />
+      {/* <div className="w-100">
+        <Footer />
+      </div> */}
     </div>
   );
 }
