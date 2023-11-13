@@ -27,7 +27,11 @@ function Elements(): JSX.Element {
   const [eleId, setEleid] = useState("");
   const [eleData, setEleData] = useState({});
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setEleData({});
+    setEleid("");
+  };
   const handleShow = () => setShow(true);
 
   useEffect(() => {
