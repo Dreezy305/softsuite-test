@@ -18,6 +18,7 @@ function Elements(): JSX.Element {
   const store: any = useSelector((state) => state);
   const dispatch = useAppDispatch();
   const elementData = store?.elements?.data?.data;
+  const totalItems = elementData?.total;
   console.log(elementData, "store");
 
   const [show, setShow] = useState(false);
@@ -189,7 +190,13 @@ function Elements(): JSX.Element {
               isFetching={store?.elements?.status === "loading" ? true : false}
             />
             <div className="d-flex flex-row align-items-end justify-content-end">
-              <PaginationComponent />
+              {totalItems > 10 && (
+                <PaginationComponent
+                  activeItem={page}
+                  setActiveItem={setPage}
+                  totalItems={totalItems}
+                />
+              )}
             </div>
           </div>
         </div>
