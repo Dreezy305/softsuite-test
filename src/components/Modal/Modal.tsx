@@ -23,10 +23,12 @@ function CreateElementModal({
   show,
   handleClose,
   data,
+  id,
 }: {
   show: boolean;
   handleClose: () => void;
   data?: any;
+  id?: string | any;
 }): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -39,17 +41,6 @@ function CreateElementModal({
 
   console.log(data, "data");
 
-  useEffect(() => {
-    if (data) {
-      setValue("name", data?.name);
-      setValue("classificationValueId", data?.classificationValueId);
-      setValue("categoryValueId", data?.categoryValueId);
-      setValue("payRunValueId", data?.payRunValueId);
-      setValue("description", data?.description);
-      setValue("reportingName", data?.reportingName);
-    }
-  });
-
   const {
     handleSubmit,
     formState: { errors, isValid },
@@ -61,6 +52,31 @@ function CreateElementModal({
   } = useForm({
     mode: "all",
   });
+
+  useEffect(() => {
+    if (data) {
+      setValue("name", data?.name);
+      setValue("classificationValueId", data?.classificationValueId);
+      setValue("categoryValueId", data?.categoryValueId);
+      setValue("payRunValueId", data?.payRunValueId);
+      setValue("description", data?.description);
+      setValue("reportingName", data?.reportingName);
+      setValue("effectiveStartDate", data?.effectiveStartDate);
+      setValue("effectiveEndDate", data?.effectiveEndDate);
+      setValue("processingType", data?.processingType);
+      setValue("payFrequency", data?.payFrequency);
+      if (data?.selectedMonths) {
+        setValue(
+          "selectedMonths",
+          data?.selectedMonths?.map((i: any) => {
+            return { value: i, label: i };
+          })
+        );
+        setValue("prorate", data?.prorate);
+        setValue("status", data?.status);
+      }
+    }
+  }, [data, setValue]);
 
   const onSubmit = async (data: any) => {
     setIsSubmitted(true);
@@ -92,7 +108,47 @@ function CreateElementModal({
       );
       console.log(response.data);
       if (response.status === 201) {
-        dispatch<any>(fetchElements());
+        dispatch<any>(fetchElements(1));
+        setIsSubmitted(true);
+      }
+    } catch (error) {
+      setIsSubmitted(false);
+      return error;
+    }
+    setIsSubmitted(false);
+  };
+
+  const onSavechanges = async (data: any) => {
+    setIsSubmitted(false);
+    const selectedMonths = data?.selectedMonths?.map((i: any) => i.label);
+    const payload = {
+      name: data?.name,
+      description: data?.description,
+      payRunId: 5,
+      payRunValueId: data?.payRunValueId,
+      classificationId: 2,
+      classificationValueId: data?.classificationValueId,
+      categoryId: 1,
+      categoryValueId: data?.categoryValueId,
+      reportingName: data.reportingName,
+      processingType: data?.processingType,
+      status: data?.status,
+      prorate: data?.prorate,
+      effectiveStartDate: data?.effectiveStartDate,
+      effectiveEndDate: data?.effectiveEndDate,
+      selectedMonths: selectedMonths,
+      payFrequency: data?.payFrequency,
+      modifiedBy: "Bankole Idris Adegboyega",
+    };
+
+    try {
+      const response = await axios.post(
+        `https://650af6bedfd73d1fab094cf7.mockapi.io/elements/${id}`,
+        payload
+      );
+      console.log(response.data);
+      if (response.status === 201) {
+        dispatch<any>(fetchElements(1));
         handleClose();
       }
     } catch (error) {
@@ -100,6 +156,14 @@ function CreateElementModal({
       return error;
     }
     setIsSubmitted(false);
+  };
+
+  const checkBeforeSubmit = async (data: any) => {
+    if (Object.keys(data)?.length > 0) {
+      onSavechanges(data);
+    } else {
+      onSubmit(data);
+    }
   };
 
   return (
@@ -149,7 +213,7 @@ function CreateElementModal({
         </Modal.Body>
       ) : (
         <Modal.Body>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={handleSubmit(checkBeforeSubmit)}>
             {stage === 1 && (
               <>
                 <Row>
@@ -452,10 +516,10 @@ function CreateElementModal({
                         render={({ field }) => (
                           <Select
                             isMulti
-                            // options={monthsArray.map((month) => ({
-                            //   value: month.abbreviation,
-                            //   label: month.name,
-                            // }))}
+                            options={monthsArray.map((month) => ({
+                              value: month.abbreviation,
+                              label: month.name,
+                            }))}
                             {...field}
                             isDisabled={
                               watch()?.payFrequency === "monthly" ? true : false
@@ -476,7 +540,7 @@ function CreateElementModal({
                         Prorate
                       </Form.Label>
                       <Controller
-                        name="processingType"
+                        name="prorate"
                         control={control}
                         rules={{ required: "Please select a processing type" }}
                         render={({ field }) => (
@@ -597,13 +661,23 @@ function CreateElementModal({
                   </button>
                 </Col>
                 <Col>
-                  <button
-                    type="submit"
-                    className="w-100 form-button next"
-                    disabled={!isValid}
-                  >
-                    {isSubmitted ? "Creating" : "Create New Element"}
-                  </button>
+                  {Object.keys(data)?.length > 0 ? (
+                    <button
+                      type="submit"
+                      className="w-100 form-button next"
+                      disabled={!isValid}
+                    >
+                      {isSubmitted ? "Saving" : "Save Changes"}
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="w-100 form-button next"
+                      disabled={!isValid}
+                    >
+                      {isSubmitted ? "Creating" : "Create New Element"}
+                    </button>
+                  )}
                 </Col>
               </Row>
             )}

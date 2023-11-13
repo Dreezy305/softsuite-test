@@ -85,6 +85,7 @@ function Elements(): JSX.Element {
                     onClick={() => {
                       handleShow();
                       setEleData(row?.original);
+                      setEleid(id);
                     }}
                   >
                     <svg
