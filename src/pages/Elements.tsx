@@ -14,8 +14,10 @@ import { fetchElements } from "../store/elementReducer";
 import { useAppDispatch } from "../store/hooks";
 import { ElementsColumn } from "../utils/dataTable";
 import "./elements.scss";
+import { useNavigate } from "react-router-dom";
 
 function Elements(): JSX.Element {
+  const navigate = useNavigate()
   const store: any = useSelector((state) => state);
   const dispatch = useAppDispatch();
   const elementData = store?.elements?.data?.data;
@@ -65,7 +67,10 @@ function Elements(): JSX.Element {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="p-2">
-                  <Dropdown.Item href="#/action-2">
+                  <Dropdown.Item
+                    as={"button"}
+                    onClick={() => navigate(`/element/${id}`)}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
