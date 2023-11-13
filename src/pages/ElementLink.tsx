@@ -103,6 +103,14 @@ function ElementLink(): JSX.Element {
                             ? "Effective start date"
                             : key === "effectiveEndDate"
                             ? "Effective end date"
+                            : key === "reportingName"
+                            ? "reporting name"
+                            : key === "processingType"
+                            ? "processing type"
+                            : key === "payFrequency"
+                            ? "pay frequency"
+                            : key === "modifiedBy"
+                            ? "modified by"
                             : key}
                         </small>
                         {Array.isArray(value) ? (
