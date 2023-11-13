@@ -1,4 +1,4 @@
-import { ELEMENT_CAT } from "./months";
+import { ELEMENT_CAT, ELEMENT_CLASS } from "./months";
 
 export const ElementsColumn = [
   { Header: "Name", columnId: 1, accessor: "name" },
@@ -23,8 +23,20 @@ export const ElementsColumn = [
     Header: "Element Classification",
     columnId: 3,
     accessor: "element_classification",
+    Cell: ({ row }: any) => {
+      const idToFilter = row?.original?.classificationValueId;
+      const filteredData: any = ELEMENT_CLASS.filter(
+        (item: any) => item.id === idToFilter
+      );
+
+      return (
+        <div className="" role="group">
+          {filteredData[0]?.name}
+        </div>
+      );
+    },
   },
   { Header: "Status", columnId: 4, accessor: "status" },
-  { Header: "Date and time modified", columnId: 5, accessor: "dom" },
-  { Header: "Modified By", columnId: 6, accessor: "modified_by" },
+  { Header: "Date and time modified", columnId: 5, accessor: "createdAt" },
+  { Header: "Modified By", columnId: 6, accessor: "modifiedBy" },
 ];
