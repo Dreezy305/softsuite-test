@@ -91,7 +91,8 @@ function ElementLink(): JSX.Element {
                   key === "payRunId" ||
                   key === "classificationId" ||
                   key === "categoryId" ||
-                  key === "id" ? null : (
+                  key === "id" ||
+                  key === "createdAt" ? null : (
                     <div
                       className={`col-lg-6 border text-start pt-2 pb-3`}
                       key={key + value}
