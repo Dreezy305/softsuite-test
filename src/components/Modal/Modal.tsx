@@ -5,12 +5,11 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import { Controller, useForm } from "react-hook-form";
-// import { useSelector } from "react-redux";
 import Select from "react-select";
 import { ReactComponent as Success } from "../../assets/success.svg";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchLookUps } from "../../store/lookupReducer";
-// import { fetchLookUpsValues } from "../../store/lookupValueReducer";
+import axios from "axios";
 import {
   ELEMENT_CAT,
   ELEMENT_CLASS,
@@ -41,33 +40,51 @@ function CreateElementModal({
     control,
     register,
     reset,
+    watch,
   } = useForm({
     mode: "all",
   });
 
-  const onSubmit = (data: any) => {
-    console.log("Step 2 data:", { ...data, modifiedBy: "" });
-    const selectedMonths = data?.selectedMonths?.map((i: any) => i);
+  const onSubmit = async (data: any) => {
+    setIsSubmitted(true);
+    const selectedMonths = data?.selectedMonths?.map((i: any) => i.label);
     const payload = {
       name: data?.name,
       description: data?.description,
       payRunId: 5,
-      payRunValueId: Number,
+      payRunValueId: data?.payRunValueId,
       classificationId: 2,
-      classificationValueId: Number,
+      classificationValueId: data?.classificationValueId,
       categoryId: 1,
-      categoryValueId: Number,
+      categoryValueId: data?.categoryValueId,
       reportingName: data.reportingName,
       processingType: data?.processingType,
       status: data?.status,
       prorate: data?.prorate,
       effectiveStartDate: data?.effectiveStartDate,
       effectiveEndDate: data?.effectiveEndDate,
-      selectedMonths: [String],
+      selectedMonths: selectedMonths,
       payFrequency: data?.payFrequency,
       modifiedBy: "Bankole Idris Adegboyega",
     };
+
+    try {
+      const response = await axios.post(
+        `https://650af6bedfd73d1fab094cf7.mockapi.io/elements`,
+        payload
+      );
+      console.log(response.data);
+      if (response.status === 201) {
+        setIsSubmitted(false);
+      }
+    } catch (error) {
+      setIsSubmitted(false);
+      return error;
+    }
+    setIsSubmitted(false);
   };
+
+  console.log(watch()?.payFrequency, "");
 
   return (
     <Modal
@@ -157,7 +174,7 @@ function CreateElementModal({
                         Elements Classification
                       </Form.Label>
                       <Controller
-                        name="classificationId"
+                        name="classificationValueId"
                         control={control}
                         rules={{ required: "Please choose an option" }}
                         render={({ field }) => (
@@ -285,14 +302,11 @@ function CreateElementModal({
                       </Form.Label>
                       <input
                         type="date"
-                        aria-label="First name"
+                        aria-label="Effective Start Date"
                         className="form-control form-input"
                         id="effectiveStartDate"
                         {...register("effectiveStartDate", {
-                          required: {
-                            value: true,
-                            message: "pls enter start date",
-                          },
+                          required: "Please enter a start date",
                         })}
                       />
                       {errors.effectiveStartDate && (
@@ -312,14 +326,11 @@ function CreateElementModal({
                       </Form.Label>
                       <input
                         type="date"
-                        aria-label="First name"
+                        aria-label="Effective Start Date"
                         className="form-control form-input"
-                        id="effectiveStartDate"
-                        {...register("effectiveStartDate", {
-                          required: {
-                            value: true,
-                            message: "pls enter start date",
-                          },
+                        id="effectiveEndDate"
+                        {...register("effectiveEndDate", {
+                          required: "Please enter a start date",
                         })}
                       />
                       {errors.effectiveStartDate && (
@@ -339,25 +350,34 @@ function CreateElementModal({
                       <Form.Label className="form-input-label">
                         Processing Type
                       </Form.Label>
-                      <div
-                        key={`inline-radio`}
-                        className="mb-3 radio-input form-control"
-                      >
-                        <Form.Check
-                          inline
-                          label="Open"
-                          name="processingType"
-                          type={"radio"}
-                          id={``}
-                        />
-                        <Form.Check
-                          inline
-                          label="Closed"
-                          name="processingType"
-                          type={"radio"}
-                          id={``}
-                        />
-                      </div>
+                      <Controller
+                        name="processingType"
+                        control={control}
+                        rules={{ required: "Please select a processing type" }}
+                        render={({ field }) => (
+                          <div
+                            key="inline-radio"
+                            className="mb-3 radio-input form-control"
+                          >
+                            <Form.Check
+                              inline
+                              label="Open"
+                              type="radio"
+                              id="open"
+                              {...field}
+                              value="open"
+                            />
+                            <Form.Check
+                              inline
+                              label="Closed"
+                              type="radio"
+                              id="closed"
+                              {...field}
+                              value="closed"
+                            />
+                          </div>
+                        )}
+                      />
                     </Form.Group>
                   </Col>
                   <Col>
@@ -368,25 +388,34 @@ function CreateElementModal({
                       <Form.Label className="form-input-label">
                         Pay Frequency
                       </Form.Label>
-                      <div
-                        key={`inline-radio`}
-                        className="mb-3 radio-input form-control"
-                      >
-                        <Form.Check
-                          inline
-                          label="Monthly"
-                          name="payFrequency"
-                          type={"radio"}
-                          id={``}
-                        />
-                        <Form.Check
-                          inline
-                          label="Selected Months"
-                          name="payFrequency"
-                          type={"radio"}
-                          id={``}
-                        />
-                      </div>
+                      <Controller
+                        name="payFrequency"
+                        control={control}
+                        rules={{ required: "Please select a pay frequency" }}
+                        render={({ field }) => (
+                          <div
+                            key="inline-radio"
+                            className="mb-3 radio-input form-control"
+                          >
+                            <Form.Check
+                              inline
+                              label="Monthly"
+                              type="radio"
+                              id="monthly"
+                              {...field}
+                              value="monthly"
+                            />
+                            <Form.Check
+                              inline
+                              label="Selected Months"
+                              type="radio"
+                              id="selectedMonths"
+                              {...field}
+                              value="selectedMonths"
+                            />
+                          </div>
+                        )}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -410,6 +439,9 @@ function CreateElementModal({
                               label: month.name,
                             }))}
                             {...field}
+                            isDisabled={
+                              watch()?.payFrequency === "monthly" ? true : false
+                            }
                           />
                         )}
                       />
@@ -425,25 +457,34 @@ function CreateElementModal({
                       <Form.Label className="form-input-label">
                         Prorate
                       </Form.Label>
-                      <div
-                        key={`inline-radio`}
-                        className="mb-3 radio-input form-control"
-                      >
-                        <Form.Check
-                          inline
-                          label="Yes"
-                          name="processingType"
-                          type={"radio"}
-                          id={``}
-                        />
-                        <Form.Check
-                          inline
-                          label="No"
-                          name="processingType"
-                          type={"radio"}
-                          id={``}
-                        />
-                      </div>
+                      <Controller
+                        name="processingType"
+                        control={control}
+                        rules={{ required: "Please select a processing type" }}
+                        render={({ field }) => (
+                          <div
+                            key="inline-radio"
+                            className="mb-3 radio-input form-control"
+                          >
+                            <Form.Check
+                              inline
+                              label="Yes"
+                              type="radio"
+                              id="yes"
+                              {...field}
+                              value="yes"
+                            />
+                            <Form.Check
+                              inline
+                              label="No"
+                              type="radio"
+                              id="no"
+                              {...field}
+                              value="no"
+                            />
+                          </div>
+                        )}
+                      />
                     </Form.Group>
                   </Col>
                   <Col>
@@ -454,7 +495,25 @@ function CreateElementModal({
                       <Form.Label className="form-input-label">
                         Status
                       </Form.Label>
-                      <div
+                      <Controller
+                        name="status"
+                        control={control}
+                        render={({ field }) => (
+                          <div
+                            key="inline-radio"
+                            className="mb-3 radio-input form-control"
+                          >
+                            <Form.Check
+                              type="switch"
+                              id="custom-switch"
+                              label="Active"
+                              {...field}
+                              value={field.value ? "active" : "inactive"}
+                            />
+                          </div>
+                        )}
+                      />
+                      {/* <div
                         key={`inline-radio`}
                         className="mb-3 radio-input form-control"
                       >
@@ -463,7 +522,7 @@ function CreateElementModal({
                           id="custom-switch"
                           label="Active"
                         />
-                      </div>
+                      </div> */}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -512,7 +571,7 @@ function CreateElementModal({
                     className="w-100 form-button next"
                     disabled={!isValid}
                   >
-                    Create New Element
+                    {isSubmitted ? "Creating" : "Create New Element"}
                   </button>
                 </Col>
               </Row>

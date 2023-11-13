@@ -1,20 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
+import { useSelector } from "react-redux";
 import { ReactComponent as Filter } from "../assets/Filter.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
 import { ReactComponent as Search } from "../assets/search.svg";
 import CreateElementModal from "../components/Modal/Modal";
 import Table from "../components/Table/Table";
+import { fetchElements } from "../store/elementReducer";
+import { useAppDispatch } from "../store/hooks";
 import { ElementsColumn } from "../utils/dataTable";
 import "./elements.scss";
 
 function Elements(): JSX.Element {
+  const store: any = useSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const elementData = store?.elements?.data?.data;
+  console.log(elementData, "store");
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    dispatch<any>(fetchElements());
+  }, [dispatch]);
 
   const columns = useMemo(
     () => [
@@ -28,15 +40,8 @@ function Elements(): JSX.Element {
           const locationObject = row?.original;
           return (
             <div className="btn-group" role="group">
-              <button
-                className="btn btn-white btn-sm"
-                // onClick={() =>
-                //   navigate(`/merchant/accounts/details/${id}`, {
-                //     state: { ...locationObject },
-                //   })
-                // }
-              >
-                <i className="bi bi-three-dots"></i> View
+              <button className="btn">
+                <i className="bi bi-three-dots"></i>
               </button>
             </div>
           );
@@ -122,7 +127,11 @@ function Elements(): JSX.Element {
           </div>
 
           <div className="w-100">
-            <Table columns={columns} data={[]} isFetching={false} />
+            <Table
+              columns={columns}
+              data={elementData?.content ?? []}
+              isFetching={false}
+            />
           </div>
         </div>
       </div>
