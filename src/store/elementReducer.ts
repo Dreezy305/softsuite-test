@@ -10,10 +10,13 @@ export default function elementsReducer(state = initialState, action: any) {
   switch (action.type) {
     case FETCH_ELEMENTS_START: {
       // omit implementatio
+      break;
     }
     case FETCH_ELEMENTS_SUCCESS: {
+      break;
     }
     case FETCH_ELEMENTS_FAILURE: {
+      break;
     }
     default:
       return state;
