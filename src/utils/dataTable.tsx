@@ -37,7 +37,22 @@ export const ElementsColumn = [
       );
     },
   },
-  { Header: "Status", columnId: 4, accessor: "status" },
+  {
+    Header: "Status",
+    columnId: 4,
+    accessor: "status",
+    Cell: ({ row }: any) => {
+      return (
+        <div className="" role="group">
+          {row?.original?.status === true
+            ? "active"
+            : row?.original?.status === false
+            ? "Inactive"
+            : row?.original?.status}
+        </div>
+      );
+    },
+  },
   {
     Header: "Date and time modified",
     columnId: 5,
