@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Filter } from "../assets/Filter.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
 import { ReactComponent as Search } from "../assets/search.svg";
@@ -14,10 +15,9 @@ import { fetchElements } from "../store/elementReducer";
 import { useAppDispatch } from "../store/hooks";
 import { ElementsColumn } from "../utils/dataTable";
 import "./elements.scss";
-import { useNavigate } from "react-router-dom";
 
 function Elements(): JSX.Element {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const store: any = useSelector((state) => state);
   const dispatch = useAppDispatch();
   const elementData = store?.elements?.data?.data;
@@ -132,7 +132,7 @@ function Elements(): JSX.Element {
         },
       },
     ],
-    []
+    [navigate]
   );
 
   return (
