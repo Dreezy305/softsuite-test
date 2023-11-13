@@ -8,37 +8,6 @@ function ElementLink(): JSX.Element {
   const location = useLocation();
   const data = location?.state;
 
-  const payload = {
-    name: data?.name,
-    description: data?.description,
-    payRunId: 5,
-    payRunValueId: data?.payRunValueId,
-    classificationId: 2,
-    classificationValueId: data?.classificationValueId,
-    categoryId: 1,
-    categoryValueId: data?.categoryValueId,
-    reportingName: data.reportingName,
-    processingType: data?.processingType,
-    status: data?.status,
-    prorate: data?.prorate,
-    effectiveStartDate: data?.effectiveStartDate,
-    effectiveEndDate: data?.effectiveEndDate,
-    selectedMonths: data?.selectedMonths,
-    payFrequency: data?.payFrequency,
-    modifiedBy: "Bankole Idris Adegboyega",
-  };
-
-  const left = {
-    name: data?.name,
-    classificationValueId: data?.classificationValueId,
-    description: data?.description,
-    reportingName: data.reportingName,
-  };
-  const right = {
-    categoryValueId: data?.categoryValueId,
-    payRunValueId: data?.payRunValueId,
-  };
-
   return (
     <div
       className="px-5 py-3"
