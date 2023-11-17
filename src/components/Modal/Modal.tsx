@@ -157,7 +157,7 @@ function CreateElementModal({
   };
 
   const checkBeforeSubmit = async (data: any) => {
-    if (Object.keys(data)?.length > 0) {
+    if (id) {
       onSavechanges(data);
     } else {
       onSubmit(data);
